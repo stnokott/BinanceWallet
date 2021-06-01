@@ -1,0 +1,11 @@
+{
+  "domain": "binancewallet",
+  "name": "BinanceWallet",
+  "version": "0.0.1",
+  "documentation": "https://github.com/stnokott/BinanceWallet",
+  "dependencies": [],
+  "codeowners": [
+    "@stnokott"
+  ],
+  "requirements": []
+}
