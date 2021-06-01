@@ -1,6 +1,8 @@
 ## Home Assistant sensor component for Binance Spot Wallet
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
-#### Powered by Binance API
+### Powered by Binance API
+
+#### Provides information about assets in your Binance wallet
 
 ### Features
 - Total wallet value in BTC as sensor value
