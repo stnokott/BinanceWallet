@@ -30,7 +30,8 @@
     - platform: binancewallet
       api_key: "S7LLxxxx..."           (required)
       api_secret: "hQYJxxxx..."        (required)
-      name: "main wallet"              (optional, default = <first 4 characters of API key>) 
+      unique_id: "binance_wallet_main" (optional, default = "binance_wallet_<first 4 characters of API key>"
+      name: "Main Wallet"              (optional, default = "Binance Wallet <first 4 characters of API key>") 
       icon: "mdi:currency-btc"         (optional, default = "mdi:bitcoin")
 ```
 

@@ -20,7 +20,7 @@ from .const.const import (
     ATTR_ASSETS,
     ATTR_BALANCES_ASSET,
     ATTR_BALANCES_TOTAL,
-    ENDPOINT_WALLET,
+    ENDPOINT_WALLET, CONF_UNIQUE_ID, UNIQUE_ID_PREFIX,
 )
 
 from homeassistant.components.sensor import PLATFORM_SCHEMA
@@ -43,6 +43,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
     {
         vol.Required(CONF_API_KEY): cv.string,
         vol.Required(CONF_API_SECRET): cv.string,
+        vol.Optional(CONF_UNIQUE_ID, default=""): cv.string,
         vol.Optional(CONF_NAME, default=""): cv.string,
         vol.Optional(CONF_ICON, default="mdi:bitcoin"): cv.string,
     }
@@ -52,6 +53,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 def setup_platform(hass, config, add_entities, discovery_info=None):
     LOGGER.debug("Setting up sensor")
 
+    unique_id = config.get(CONF_UNIQUE_ID)
     name = config.get(CONF_NAME)
     api_key = config.get(CONF_API_KEY)
     api_secret = config.get(CONF_API_SECRET)
@@ -60,15 +62,19 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     entities = []
 
     try:
-        entities.append(BinanceWalletSensor(api_key, api_secret, name, icon))
+        entities.append(BinanceWalletSensor(api_key, api_secret, unique_id, name, icon))
     except urllib.error.HTTPError as e:
         LOGGER.error(e.reason)
         return False
 
 
 class BinanceWalletSensor(Entity):
-    def __init__(self, api_key, api_secret, id_name, icon):
+    def __init__(self, api_key, api_secret, unique_id, id_name, icon):
         self.update = Throttle(timedelta(hours=1))(self._update)
+        if len(unique_id) > 0:
+            self._unique_id = unique_id
+        else:
+            self._unique_id = f"{UNIQUE_ID_PREFIX}_{api_key[:4]}"
         self._name = (
             f"{SENSOR_PREFIX} {id_name if len(id_name) > 0 else api_key[:4] + 'xxxx'}"
         )
@@ -78,6 +84,10 @@ class BinanceWalletSensor(Entity):
         self._balances: List[WalletBalance] = []
         self._unit_of_measurement: str = "BTC"
         self._wallet = Wallet(api_key, api_secret)
+
+    @property
+    def unique_id(self):
+        return self._unique_id
 
     @property
     def name(self):
