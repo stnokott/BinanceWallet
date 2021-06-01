@@ -1,4 +1,6 @@
 ## Home Assistant sensor component for Binance Spot Wallet
+<img src="https://user-images.githubusercontent.com/30934296/120327950-a0bfeb00-c2ea-11eb-9d85-556c9095b16b.png" width="150px"> 
+
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 ### Powered by Binance API
 
@@ -18,7 +20,7 @@
 - First, create an API-Application in your [Binance account management](https://www.binance.com/de/my/settings/api-management).
 - (Optional) Restrict API-access to `Enable Reading` only if you like
 - Copy the **API Key** and **Secret Key**:
-![img.png](res/api_keys.png)
+![api_keys](https://user-images.githubusercontent.com/30934296/120327285-e03a0780-c2e9-11eb-9892-09961a43f3bd.png)
 - Use your `secrets.yaml` to store the keys (see [this guide](https://www.home-assistant.io/docs/configuration/secrets/)).
   You can also paste the keys as plain-text in the `configuration.yaml` though this is not recommended.
 - Create a sensor entry in your `configuration.yaml` like this:
