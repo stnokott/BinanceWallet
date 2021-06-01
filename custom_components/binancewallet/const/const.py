@@ -8,7 +8,7 @@ CONF_API_SECRET = "api_secret"
 CONF_NAME = "name"
 CONF_ICON = "icon"
 
-SENSOR_PREFIX = "Binance Wallet "
+SENSOR_PREFIX = "Binance Wallet"
 ATTR_DATA_TIMESTAMP = "data_timestamp"
 ATTR_ASSETS = "assets"
 ATTR_BALANCES_ASSET = "asset"
