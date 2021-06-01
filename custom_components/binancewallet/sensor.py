@@ -53,7 +53,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 def setup_platform(hass, config, add_entities, discovery_info=None):
     LOGGER.debug("Setting up sensor")
 
-    unique_id = config.get(CONF_UNIQUE_ID)
+    unique_id = config.get(CONF_UNIQUE_ID).lower().strip()
     name = config.get(CONF_NAME)
     api_key = config.get(CONF_API_KEY)
     api_secret = config.get(CONF_API_SECRET)
@@ -66,6 +66,8 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     except urllib.error.HTTPError as e:
         LOGGER.error(e.reason)
         return False
+
+    add_entities(entities)
 
 
 class BinanceWalletSensor(Entity):
