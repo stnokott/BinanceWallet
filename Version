@@ -1,2 +1,4 @@
 Version: 0.0.1  20210601 - Initial Release
 Version: 0.0.2  20210601 - Add unique_id to configuration variables
+Version: 0.0.3  20210601 - Fix missing call to add_entities() :|
+Version: 0.0.4  20210601 - Fix incorrect timestamp format
