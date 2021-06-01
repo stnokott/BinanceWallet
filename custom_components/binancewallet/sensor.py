@@ -122,7 +122,7 @@ class BinanceWalletSensor(Entity):
 
     def _update(self):
         self._wallet.update()
-        self._data_timestamp = self._wallet.timestamp.strftime("%s-%m-%Y %H:%M")
+        self._data_timestamp = self._wallet.timestamp.strftime("%d-%m-%Y %H:%M")
         self._state = self._wallet.total_btc
         self._balances = self._wallet.balances
 
