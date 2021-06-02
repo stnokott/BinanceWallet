@@ -178,27 +178,27 @@ class Wallet:
         self.total_btc: Optional[float] = None
         self.balances: List[WalletBalance] = []
 
-        self._params = {
-            "type": "SPOT",
-        }
         self._headers = {"X-MBX-APIKEY": self._api_key}
 
     def _execute_request(self) -> RequestResponse:
         url = urljoin(ENDPOINT_BASE, ENDPOINT_WALLET)
 
-        self._params["timestamp"] = str(int(time.time() * 1000))
+        params = {
+            "type": "SPOT",
+            "timestamp": str(int(time.time() * 1000))
+        }
 
         # form base query string from params
-        base_query_string = urlencode(self._params)
+        base_query_string = urlencode(params)
 
         # create signature params
-        self._params["signature"] = hmac.new(
+        params["signature"] = hmac.new(
             bytes(self._secret_key, "utf-8"),
             bytearray(base_query_string, "utf-8"),
             hashlib.sha256,
         ).hexdigest()
 
-        r = requests.get(url, headers=self._headers, params=self._params)
+        r = requests.get(url, headers=self._headers, params=params)
         return RequestResponse(r)
 
     def update(self):
