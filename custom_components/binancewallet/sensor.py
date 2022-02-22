@@ -51,6 +51,7 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
 
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
+    """Sets up HASS platform"""
     LOGGER.debug("Setting up sensor")
 
     unique_id = config.get(CONF_UNIQUE_ID).lower().strip()
@@ -71,6 +72,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
 
 class BinanceWalletSensor(Entity):
+    """Sensor retrieving data from Binance"""
     def __init__(self, api_key, api_secret, unique_id, id_name, icon):
         self.update = Throttle(timedelta(hours=1))(self._update)
         if len(unique_id) > 0:
@@ -128,6 +130,7 @@ class BinanceWalletSensor(Entity):
 
 
 class RequestStatus(enum.IntEnum):
+    """Enum for possible request status values"""
     SUCCESS = 0
     REQUEST_MALFORMED = 1
     WAF_LIMIT_VIOLATED = 2
@@ -137,7 +140,8 @@ class RequestStatus(enum.IntEnum):
     UNDEFINED = 6
 
 
-class RequestResponse:
+class RequestResponse(object):
+    """Object holding data about a Binance response"""
     def __init__(self, response: requests.Response):
         status_code = response.status_code
         self.text = response.text
@@ -164,13 +168,15 @@ class RequestResponse:
                 self.status = RequestStatus.UNDEFINED
 
 
-class WalletBalance:
+class WalletBalance(object):
+    """Struct holding values relating to a Binance wallet"""
     def __init__(self, asset: str, free: float, locked: float):
         self.asset = asset
         self.total = free + locked
 
 
-class Wallet:
+class Wallet(object):
+    """Wallet object holding values relating to a Binance wallet"""
     def __init__(self, api_key: str, secret_key: str):
         self._api_key = api_key
         self._secret_key = secret_key
