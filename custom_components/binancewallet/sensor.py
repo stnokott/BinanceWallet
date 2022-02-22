@@ -108,7 +108,7 @@ class BinanceWalletSensor(Entity):
         return self._unit_of_measurement
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         return {
             ATTR_DATA_TIMESTAMP: self._data_timestamp,
             ATTR_ASSETS: [
